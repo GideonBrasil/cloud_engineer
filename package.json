@@ -4,7 +4,9 @@
   "description": "An express application written with ts",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/app.js",
+    "dev": "tsc -w & nodemon dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "homepage": "https://github.com/GideonBrasil/cloud_engineer#readme",
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
   },
   "dependencies": {
