@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules
+.vscode
 
 # local env files (might switch to secrets or gh env)
 .env.local
