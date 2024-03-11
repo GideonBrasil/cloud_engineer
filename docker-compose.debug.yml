@@ -1,14 +1,16 @@
-version: '3.4'
+version: '3.8'
 
 services:
-  expresstypescript:
-    image: expresstypescript
+  app:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      target: development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5001:5001"
+      - "9229:9229"
     environment:
       NODE_ENV: development
-    ports:
-      - 5001:5001
-      - 9229:9229
     command: ["node", "--inspect=0.0.0.0:9229", "app.js"]

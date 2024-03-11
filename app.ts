@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
+require('dotenv').config();
 const app = express();
 
 app.use(express.json());
@@ -30,4 +31,4 @@ export default app;
 const port = process.env.PORT || 3000;
 if (require.main === module) {
     app.listen(port, () => console.log(`Listening on port ${port}...`));
-}
+};
