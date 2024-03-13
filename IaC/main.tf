@@ -12,7 +12,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_azuread_application" "aks_sp_app" {
-  name = "aks-sp-api"
+  name = "aks-sp-app"
 }
 
 resource "azurerm_azuread_service_principal" "aks_sp" {
