@@ -16,7 +16,7 @@ terraform_tests
 .deploy.sh
 
 # dependencies
-node_modules
+**/node_modules/*
 .vscode
 
 # local env files (might switch to secrets or gh env)
