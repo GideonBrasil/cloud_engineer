@@ -5,13 +5,17 @@ variable "sp_password" {
 }
 
 variable "subscription_id" {
-  description = "The Subscription ID used for Azure resources"
+  description = "Azure resources Subscription ID"
   type        = string
 }
 
-variable "client_id" {
-  description = "The Client ID of the Service Principal"
+variable "sp_client_id" {
+  description = "Service Principal Client ID"
   type        = string
+}
+
+variable "sp_client_secret" {
+  description = "Service Principal client Secret"
 }
 
 variable "environment" {
