@@ -13,3 +13,7 @@ variable "client_id" {
   description = "The Client ID of the Service Principal"
   type        = string
 }
+
+variable "environment" {
+  description = "deployment environment ('dev' or 'prod')"
+}
