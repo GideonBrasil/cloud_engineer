@@ -1,7 +1,17 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
 terraform_tests
-.terraform
 .setup-env.sh
 .deploy.sh
 
