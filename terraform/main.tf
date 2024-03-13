@@ -40,28 +40,6 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = false
 }
 
-module "aks_development" {
-  source = "./modules/aks"
-  name   = "dev-aks-cluster"
-  service_principal = {
-    client_id     = var.sp_client_id
-    client_secret = var.sp_client_secret
-  }
-  node_count  = 1
-  environment = "development"
-}
-
-module "aks_production" {
-  source = "./modules/aks"
-  name   = "prod-aks-cluster"
-  service_principal = {
-    client_id     = var.sp_client_id
-    client_secret = var.sp_client_secret
-  }
-  node_count  = 3
-  environment = "production"
-}
-
 resource "azurerm_role_assignment" "acr_pull" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPull"
