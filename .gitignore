@@ -1,6 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 terraform_tests
+.setup-env.sh
+.deploy.sh
 
 # dependencies
 node_modules
