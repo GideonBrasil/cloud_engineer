@@ -22,3 +22,9 @@
 **/values.dev.yaml
 LICENSE
 README.md
+
+# Compiled files
+**/.terraform/*
+**/.terragrunt-cache/*
+*.tfstate
+*.tfstate.*
