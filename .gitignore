@@ -2,6 +2,8 @@
 
 # Local .terraform directories
 **/.terraform/*
+terraform.tfvars
+terraform.tfvars.bak
 
 # .tfstate files
 *.tfstate
@@ -23,3 +25,5 @@ terraform_tests
 .env.local
 .env.*.local
 .env
+.env.prod
+.env.dev
