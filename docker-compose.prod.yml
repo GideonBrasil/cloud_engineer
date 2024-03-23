@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: production
+    environment:
+      NODE_ENV: production
+    restart: always
+    ports:
+      - "3000:3000"
