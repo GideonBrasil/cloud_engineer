@@ -18,6 +18,7 @@ crash.*.log
 setup-env.sh
 deploy.sh
 state.sh
+create_sub-ten_id.sh
 
 # dependencies
 **/node_modules/*
