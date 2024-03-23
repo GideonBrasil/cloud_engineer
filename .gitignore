@@ -1,0 +1,32 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# Local .terraform directories
+terraform_tests
+**/.terraform/*
+terraform.tfvars
+terraform.tfvars.bak
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# scripts
+setup-env.sh
+deploy.sh
+state.sh
+create_sub-ten_id.sh
+
+# dependencies
+**/node_modules/*
+.vscode
+
+# local env files (might switch to secrets or gh env)
+.env.local
+.env.*.local
+.env
+.env.prod
+.env.dev
