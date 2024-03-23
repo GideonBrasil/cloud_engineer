@@ -1,0 +1,44 @@
+name: CD
+
+on:
+  workflow_dispatch:
+  # pull_request:
+  #   branches: [ main, dev ]
+
+env:
+  TF_VERSION: '1.7.4'
+  TF_WORKING_DIR: './terraform'
+
+jobs:
+  terraform-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ env.TF_VERSION }}
+        cli_config_credentials_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ${{ env.TF_WORKING_DIR }}
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ${{ env.TF_WORKING_DIR }}
+
+    # - name: Update Deployment Image
+    #   run: kubectl set image deployment/my-deployment my-container=myregistry.azurecr.io/my-image:${{ github.sha }} --namespace my-namespace
+    
+    # - name: Update Kubernetes Config
+    #   run:  az aks get-credentials --name ${{ secrets.AKS_CLUSTER_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP_NAME }}
+
+    # - name: Deploy to Kubernetes
+    #   run: kubectl apply -f k8s/

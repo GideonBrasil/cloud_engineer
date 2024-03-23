@@ -5,6 +5,11 @@ terraform_tests
 **/.terraform/*
 terraform.tfvars
 terraform.tfvars.bak
+*.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.backup
+*.tfplan
 
 # .tfstate files
 *.tfstate
