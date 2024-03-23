@@ -1,6 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # Local .terraform directories
+terraform_tests
 **/.terraform/*
 terraform.tfvars
 terraform.tfvars.bak
@@ -13,9 +14,10 @@ terraform.tfvars.bak
 crash.log
 crash.*.log
 
-terraform_tests
-.setup-env.sh
-.deploy.sh
+# scripts
+setup-env.sh
+deploy.sh
+state.sh
 
 # dependencies
 **/node_modules/*
