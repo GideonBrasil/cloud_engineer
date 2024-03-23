@@ -43,6 +43,6 @@ resource "null_resource" "set_aks_github_secrets" {
   }
 
   provisioner "local-exec" {
-    command = "bash ../scripts/set_aks_secrets.sh '${self.triggers.aks_cluster_name}' '${self.triggers.resource_group_name}' 'yourgithubusername/yourrepo'"
+    command = "bash ../scripts/set_github_secrets.sh '${self.triggers.aks_cluster_name}' '${self.triggers.resource_group_name}'"
   }
 }
