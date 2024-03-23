@@ -1,9 +1,14 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# Local .terraform directories
+# Local .terraform 
 **/.terraform/*
 terraform.tfvars
 terraform.tfvars.bak
+*.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.backup
+*.tfplan
 
 # .tfstate files
 *.tfstate
@@ -13,7 +18,7 @@ terraform.tfvars.bak
 crash.log
 crash.*.log
 
-terraform_tests
+script_tests
 .setup-env.sh
 .deploy.sh
 
