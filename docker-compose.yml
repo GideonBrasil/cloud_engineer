@@ -14,4 +14,4 @@ services:
     environment:
       NODE_ENV: development
     restart: always
-    command: ["nodemon", "app.ts", "--exec","ts-node"]
+    command: ["npx", "nodemon", "app.ts", "--exec","ts-node"]
