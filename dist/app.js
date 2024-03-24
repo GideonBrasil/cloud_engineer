@@ -13,7 +13,7 @@ const payload = {
 };
 // Routes
 app.get('/', (req, res) => {
-    res.send('Server up and runnig.');
+    res.send('Server up and running...');
 });
 app.get('/api/timestamps', (req, res) => {
     res.json(payload);

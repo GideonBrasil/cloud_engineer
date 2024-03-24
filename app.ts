@@ -11,7 +11,7 @@ const payload = {
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
-    res.send('Server up and runnig.');
+    res.send('Server up and running...');
 });
 
 app.get('/api/timestamps', (req: Request, res: Response) => {
