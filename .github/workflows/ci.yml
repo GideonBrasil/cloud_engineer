@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Parse Azure Credentials
       run: |
@@ -21,9 +21,7 @@ jobs:
       id: env_setup
       run: |
         if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-          echo "::set-output name=env_name::prod"
-        else
-          echo "::set-output name=env_name::dev"
+          echo "env_name=dev" >> $GITHUB_OUTPUT
         fi
 
     - name: Build Docker image
