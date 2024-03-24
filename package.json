@@ -6,8 +6,9 @@
   "scripts": {
     "test": "jest",
     "start": "node dist/app.js",
-    "dev": "tsc -w & nodemon dist/app.js"
-  },
+    "dev": "tsc -w & nodemon dist/app.js",
+    "prod": "node dist/app.js"
+   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GideonBrasil/cloud_engineer.git"

@@ -32,6 +32,6 @@ create_sub-ten_id.sh
 # local env files (might switch to secrets or gh env)
 .env.local
 .env.*.local
-.env
+# .env
 .env.prod
 .env.dev
