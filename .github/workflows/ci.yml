@@ -37,6 +37,11 @@ jobs:
         username: ${{ secrets.AZURE_AD_APPLICATION_ID }}
         password: ${{ secrets.AZURE_AD_SP_PASSWORD }}
 
+    - name: Set up Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Check if ACR exists
       id: acr_check
       run: |
