@@ -6,7 +6,7 @@ SP_NAME=cloud_engineer_sp
 SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 
 # Create the Service Principal
-SP_JSON=$(az ad sp create-for-rbac --name "$SP_NAME" --role Contributor --scopes /subscriptions/$SUBSCRIPTION_ID)
+SP_JSON=$(az ad sp create-for-rbac --name "$SP_NAME" --role Contributor --scopes /subscriptions/$SUBSCRIPTION_ID --sdk-auth)
 
 # Check if the Service Principal was created successfully
 if [ $? -ne 0 ]; then
