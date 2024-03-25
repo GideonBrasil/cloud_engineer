@@ -3,13 +3,20 @@
 # Local .terraform directories
 terraform_tests
 **/.terraform/*
-terraform.tfvars
-terraform.tfvars.bak
+*.tfvars
+*terraform.tfvars.bak
+.terraform
 *.terraform.lock.hcl
 *.tfstate
 *.tfstate.backup
 *.backup
 *.tfplan
+
+# Ignore override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 
 # .tfstate files
 *.tfstate

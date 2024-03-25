@@ -31,13 +31,20 @@ jobs:
       run: docker run cloud_engineer:${{ github.sha }}--${{ steps.env_setup.outputs.env_name }}-test npm test
 
     - name: Log in to the Azure Container Registry
-      uses: azure/docker-login@v1
+      uses: azure/docker-login@v2
       with:
         login-server: ${{ secrets.ACR_NAME }}.azurecr.io
         username: ${{ secrets.AZURE_AD_APPLICATION_ID }}
         password: ${{ secrets.AZURE_AD_SP_PASSWORD }}
 
-    - name: Tag and push Docker image to ACR
+    - name: Check if ACR exists
+      id: acr_check
       run: |
-          docker tag cloud_engineer:${{ github.sha }}--${{ steps.env_setup.outputs.env_name }}-test ${{ secrets.ACR_NAME }}.azurecr.io/cloud_engineer:${{ github.sha }}--${{ steps.env_setup.outputs.env_name }}
-          docker push ${{ secrets.ACR_NAME }}.azurecr.io/cloud_engineer:${{ github.sha }}--${{ steps.env_setup.outputs.env_name }}
+        exists=$(az acr show --name ${{ secrets.ACR_NAME }} --query "name" -o tsv)
+        echo "ACR_EXISTS=$exists" >> $GITHUB_ENV
+
+    - name: Tag and push Docker image to ACR (Conditional)
+      if: env.ACR_EXISTS != ''
+      run: |
+        docker tag cloud_engineer:${{ github.sha }}--${{ steps.env_setup.outputs.env_name }}-test ${{ secrets.ACR_NAME }}.azurecr.io/cloud_engineer:${{ github.sha }}--${{ steps.env_setup.outputs.env_name }}
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/cloud_engineer:${{ github.sha }}--${{ steps.env_setup.outputs.env_name }}
