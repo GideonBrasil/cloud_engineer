@@ -12,6 +12,7 @@ env:
 jobs:
   terraform-deploy:
     runs-on: ubuntu-latest
+    environment: development
     defaults:
       run:
         shell: bash
