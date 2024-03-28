@@ -17,12 +17,12 @@ resource "azurerm_role_assignment" "sp_role" {
   principal_id         = azuread_service_principal.sp.id
 }
 
-resource "null_resource" "github_secrets" {
-  triggers = {
-    application_id = azuread_application.cloud_engineer.application_id
-  }
+# resource "null_resource" "github_secrets" {
+#   triggers = {
+#     application_id = azuread_application.cloud_engineer.application_id
+#   }
 
-  provisioner "local-exec" {
-    command = "bash ../scripts/set_github_secrets.sh ${azuread_application.cloud_engineer.application_id} '${azuread_service_principal_password.sp_secret.value}' ${var.tenant_id}"
-  }
-}
+#   provisioner "local-exec" {
+#     command = "bash ../scripts/set_github_secrets.sh ${azuread_application.cloud_engineer.application_id} '${azuread_service_principal_password.sp_secret.value}' ${var.tenant_id}"
+#   }
+# }
