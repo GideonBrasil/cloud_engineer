@@ -3,6 +3,6 @@ terraform {
     resource_group_name   = "pocTerraformStateRG"
     storage_account_name  = "pocstatewellsperformance"
     container_name        = "poctfstate"
-    key                   = "$terraform.tfstate"
+    key                   = "env-dev/terraform.tfstate"
   }
 }
