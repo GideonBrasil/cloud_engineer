@@ -29,6 +29,6 @@ variable "client_id" {
 }
 
 variable "client_secret" {
-  description = "Azure Secret"
+  description = "Azure SP Secret"
   type        = string
 }
