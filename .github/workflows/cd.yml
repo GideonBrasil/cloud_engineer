@@ -46,7 +46,10 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Plan
-        run: terraform plan -input=false -out tf.plan
+        run: terraform plan -input=false -out=tf.plan
+      - name: Save Plan Output
+        run: |
+             terraform show tf.plan > tfplan.ansi
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
