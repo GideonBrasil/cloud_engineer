@@ -46,7 +46,13 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Plan
-        run: terraform plan -input=false -out=tf.plan
+        run: |
+          terraform plan -input=false \
+          -var="tenant_id=${{ secrets.AZURE_TENANT_ID }}" \
+          -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
+          -var="client_id=${{ secrets.AZURE_CLIENT_ID }}" \
+          -var="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" \
+          -out=tf.plan
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
