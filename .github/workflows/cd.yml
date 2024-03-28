@@ -46,6 +46,8 @@ jobs:
       
       - name: Terraform Init
         run: terraform init
+        env:
+          TF_LOG: DEBUG
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Plan
