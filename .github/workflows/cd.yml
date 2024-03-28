@@ -46,8 +46,7 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Plan
-        run: terraform plan -input=false -out tf.plan \
-             terraform show  tf.plan > tfplan.ansi
+        run: terraform plan -input=false -out tf.plan
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -57,7 +56,7 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply tf.plan -auto-approve
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
