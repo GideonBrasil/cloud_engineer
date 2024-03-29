@@ -62,7 +62,8 @@ jobs:
           github_token: ${{ github.token }}
       
       - name: Terraform Plan 
-        run: terraform plan  -no-color -input=false -out=tf.plan -var-file="terraform.tfvars.dev" -auto-approve
+        run: terraform plan -no-color -input=false -out=tf.plan -var-file="terraform.tfvars.dev"
+        continue-on-error: true
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Save Plan Output
@@ -70,7 +71,7 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Apply
-        run: terraform apply tf.plan
+        run: terraform apply -auto-approve
         working-directory: ${{ env.TF_WORKING_DIR }}
 
 
