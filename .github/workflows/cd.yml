@@ -55,6 +55,12 @@ jobs:
       - name: Terraform Validate
         run: terraform validate -no-color
       
+      - name: tfsec
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        with:
+          tfsec_args: --soft-fail
+          github_token: ${{ github.token }}
+      
       - name: Terraform Plan 
         run: terraform plan  -no-color -input=false -out=tf.plan -var-file="terraform.tfvars.dev" -auto-approve
         working-directory: ${{ env.TF_WORKING_DIR }}
