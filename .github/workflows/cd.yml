@@ -26,6 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # NOTE: Example of how to login to the Azure CLI if needing to run az cli commands
       # - name: 'Az CLI login'
       #   uses: azure/login@v2
       #   with:
@@ -52,7 +53,7 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Plan 
-        run: terraform plan  -no-color -input=false -out=tf.plan -var-file="terraform.tfvars.dev"
+        run: terraform plan  -no-color -input=false -out=tf.plan -var-file="terraform.tfvars.dev" -auto-approve
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Save Plan Output
@@ -60,7 +61,7 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Apply
-        run: terraform apply tf.plan -auto-approve
+        run: terraform apply tf.plan
         working-directory: ${{ env.TF_WORKING_DIR }}
 
 
