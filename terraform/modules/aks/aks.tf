@@ -21,11 +21,11 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 }
 
-resource "kubernetes_namespace" "aks_namespace" {
-  metadata {
-    name = var.environment
-  }
-}
+# resource "kubernetes_namespace" "aks_namespace" {
+#   metadata {
+#     name = "poc-cloud-engineer-${var.environment}"
+#   }
+# }
 
 resource "azurerm_role_assignment" "aks_pull" {
   principal_id                     = azurerm_kubernetes_cluster.aks_cluster.kubelet_identity[0].object_id
