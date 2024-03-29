@@ -1,6 +1,6 @@
 variable "environment" {
   description = "deployment environment ('dev' or 'prod')"
-  type = list(string)
+  type = string
 }
 
 variable "resource_group_name" {
