@@ -71,7 +71,7 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve tf.plan
         working-directory: ${{ env.TF_WORKING_DIR }}
 
 
