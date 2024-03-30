@@ -67,10 +67,12 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Save Plan Output
-        run: terraform show -no-color tf.plan > tfplan.txt
+        run: terraform show -no-color -json tf.plan > tfplan.json
         working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Apply
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: terraform apply -auto-approve tf.plan
         working-directory: ${{ env.TF_WORKING_DIR }}
 
