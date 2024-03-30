@@ -1,0 +1,3 @@
+resource_group_location="canadacentral"
+resource_group_name="poc"
+environment="dev"

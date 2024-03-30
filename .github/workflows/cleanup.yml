@@ -1,0 +1,54 @@
+name: Cleanup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    env:
+      TF_VERSION: '1.7.4'
+      TF_WORKING_DIR: './terraform'
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        # Checks out repository under $GITHUB_WORKSPACE, so the workflow can access it
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+        # Sets up Terraform CLI in the runner environment
+
+      - name: Echo Starting Destruction
+        run: echo "Starting terraform destroy..."
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        # Initializes a Terraform working directory
+
+      - name: Terraform Destroy
+        id: destroy
+        continue-on-error: true
+        run: terraform destroy -auto-approve -no-color -var-file="terraform.tfvars.dev"
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        # Attempts to destroy Terraform-managed infrastructure
+
+      - name: Check Destroy Success
+        if: steps.destroy.outcome == 'failure'
+        run: |
+          echo "Terraform destroy failed. Review the logs and correct any issues before retrying."
+          exit 1
+      
+      - name: Echo Destruction Complete
+        run: echo "Terraform destroy completed successfully."
