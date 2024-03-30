@@ -37,7 +37,7 @@ echo "Credentials saved to azure_credentials.json."
 
 # Set GitHub Secrets
 gh secret set AZURE_CREDENTIALS --body "$SP_JSON" -R $REPO
-gh secret set AZURE_CLIENT_ID --body "$CLIENT_ID" -R $REPO -e "development"
-gh secret set AZURE_CLIENT_SECRET --body "$SECRET" -R $REPO -e "development"
-gh secret set AZURE_SUBSCRIPTION_ID --body "$SUBSCRIPTION_ID" -R $REPO -e "development"
-gh secret set AZURE_TENANT_ID --body "$TENANT_ID" -R $REPO -e "development"
+gh secret set AZURE_CLIENT_ID --body "$CLIENT_ID" -R $REPO
+gh secret set AZURE_CLIENT_SECRET --body "$SECRET" -R $REPO
+gh secret set AZURE_SUBSCRIPTION_ID --body "$SUBSCRIPTION_ID" -R $REPO
+gh secret set AZURE_TENANT_ID --body "$TENANT_ID" -R $REPO
