@@ -66,15 +66,24 @@ jobs:
         continue-on-error: true
         working-directory: ${{ env.TF_WORKING_DIR }}
 
-      - name: Save Plan Output
-        run: terraform show -no-color -json tf.plan > tfplan.json
-        working-directory: ${{ env.TF_WORKING_DIR }}
+      # - name: Save Plan Output
+      #   run: terraform show -no-color -json tf.plan > tfplan.json
+      #   working-directory: ${{ env.TF_WORKING_DIR }}
       
       - name: Terraform Apply
         env:
           GH_TOKEN: ${{ github.token }}
         run: terraform apply -auto-approve tf.plan
         working-directory: ${{ env.TF_WORKING_DIR }}
+
+      - name: Setup kube config
+        run: |
+             echo terraform output -no-color -json > ./azurek8s 
+             cat ./azurek8s
+
+      - uses: azure/setup-helm@v4.1.0
+        id: install
+
 
 
     # - name: Update Deployment Image
