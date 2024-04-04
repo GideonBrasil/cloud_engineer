@@ -1,4 +1,4 @@
-name: CD
+name: CICD
 
 on:
   workflow_dispatch:
