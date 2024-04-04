@@ -119,7 +119,7 @@ jobs:
              export KUBECONFIG=./azurek8s
 
       - uses: azure/setup-helm@v4.1.0
-        id: install
+        id: install  
 
-      - name: Deply Service
-        run: helm install --set image.tag="${{ needs.build.outputs.image_tag }}" sample-api sample_api/ --namespace cloud-engineer --create-namespace
+      - name: Deploy Service
+        run: helm upgrade --install --set image.tag="${{ needs.build.outputs.image_tag }}" sample-api sample-api/ --namespace cloud-engineer --create-namespace
