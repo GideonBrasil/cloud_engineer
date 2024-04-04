@@ -28,7 +28,7 @@ COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 # USER node
 # CMD ["npm", "start"]
 
-# Production Build
+# Development Build
 FROM base AS development
 ENV NODE_ENV=development
 COPY . .
