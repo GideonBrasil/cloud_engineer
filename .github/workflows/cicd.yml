@@ -114,11 +114,6 @@ jobs:
         run: terraform apply -auto-approve tf.plan
         working-directory: ${{ env.TF_WORKING_DIR }}
 
-      - name: Output Raw Kubeconfig Content
-        run: |
-          terraform output kube_config | hexdump -C
-        working-directory: ${{ env.TF_WORKING_DIR }}
-
       - name: Setup Kube Config File
         run: |
           echo "$(terraform output kube_config)"  > ./config
@@ -126,12 +121,9 @@ jobs:
           echo "KUBECONFIG=${PWD}/config" >> $GITHUB_ENV
         working-directory: ${{ env.TF_WORKING_DIR }}
 
-      - name: Inspect Kubeconfig
+      - name: Check Kubeconfig Content
         run: |
-          cat $KUBECONFIG | sed -e 's/client-certificate-data: .*/client-certificate-data: REDACTED/' \
-                                -e 's/client-key-data: .*/client-key-data: REDACTED/' \
-                                | grep -v 'token:' \
-                                | hexdump -C
+          head -n 20 ./config
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Log KUBECONFIG Path
