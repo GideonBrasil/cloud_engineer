@@ -115,7 +115,8 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Setup kube config file
-        run: echo "$(terraform output kube_config)" > ./azurek8s
+        run: |
+             echo "$(terraform output kube_config)" > ./azurek8s
              export KUBECONFIG=./azurek8s
 
       - uses: azure/setup-helm@v4.1.0
