@@ -118,7 +118,7 @@ jobs:
         run: |
              echo "$(terraform output kube_config)" > $HOME/azurek8s
              sed -i '/^<<EOT/d; /EOT$/d' $HOME/azurek8s
-             export KUBECONFIG-$HOME/azurek8s
+             export KUBECONFIG=$HOME/azurek8s
 
       - name: Debug
         run: | 
