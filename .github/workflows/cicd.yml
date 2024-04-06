@@ -120,7 +120,7 @@ jobs:
 
       - name: Setup Kube Config File
         run: |
-          echo "$(terraform output -raw kube_config_raw)" > ./config
+          echo "$(terraform output -raw kube_config_raw) | sed 's/\x1b\[[0-9;]*m//g')"  > ./config
           chmod 400 ./config
           echo "KUBECONFIG=${PWD}/config" >> $GITHUB_ENV
 
