@@ -116,7 +116,7 @@ jobs:
 
       - name: Setup Kube Config File
         run: |
-          echo "$(terraform output kube_config)" > ./config
+          echo "$(terraform output -raw kube_config_raw)" > ./config
           chmod 400 ./config
           mkdir -p ~/.kube
           mv ./config ~/.kube
