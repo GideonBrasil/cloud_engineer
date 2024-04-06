@@ -116,11 +116,10 @@ jobs:
 
       - name: Setup Kube Config File
         run: |
-          echo "$(terraform output kube_config)" > ./azurek8s.yaml
-          sed -i '/^<<EOT/d; /EOT$/d' ./azurek8s.yaml
-          chmod 400 ./azurek8s.yaml
+          echo "$(terraform output kube_config)" > ./config
+          chmod 400 ./config
           mkdir -p ~/.kube
-          mv ./azurek8s.yaml ~/.kube/config
+          mv ./config ~/.kube
 
       - uses: azure/setup-helm@v4.1.0
         id: install  
