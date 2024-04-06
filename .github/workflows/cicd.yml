@@ -121,6 +121,11 @@ jobs:
           echo "KUBECONFIG=${PWD}/config" >> $GITHUB_ENV
         working-directory: ${{ env.TF_WORKING_DIR }}
 
+      - name: Debug Kubeconfig Content
+        run: |
+          head -n 10 ./config
+        working-directory: ${{ env.TF_WORKING_DIR }}
+
       - name: Log KUBECONFIG Path
         run: |
           echo "KUBECONFIG environment variable is set to: $KUBECONFIG"
