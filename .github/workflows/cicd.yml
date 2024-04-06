@@ -117,7 +117,7 @@ jobs:
       - name: Setup kube config file
         run: |
              echo "$(terraform output kube_config)" > ./azurek8s
-             sed -i '' '/^<<EOT/d; /EOT$/d' ./azurek8s
+             sed -i '/^<<EOT/d; /EOT$/d' ./azurek8s
              export KUBECONFIG=./azurek8s
 
       - uses: azure/setup-helm@v4.1.0
