@@ -118,8 +118,7 @@ jobs:
         run: |
           echo "$(terraform output -raw kube_config_raw)" > ./config
           chmod 400 ./config
-          mkdir -p ~/.kube
-          mv ./config ~/.kube
+          echo "KUBECONFIG=./config" >> $GITHUB_ENV
 
       - uses: azure/setup-helm@v4.1.0
         id: install  
