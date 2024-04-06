@@ -138,5 +138,5 @@ jobs:
           version: 'latest'
 
       - name: Helm Deploy Service
-        run: helm upgrade --install --set image.tag="${{ needs.build.outputs.image_tag }}" sample-api sample-api/ --namespace cloud-engineer --create-namespace
+        run: helm upgrade --install --set image.tag="${{ needs.build.outputs.image_tag }}" sample-api ./sample_api/ --namespace cloud-engineer --create-namespace
         working-directory: ${{ env.TF_WORKING_DIR }}
