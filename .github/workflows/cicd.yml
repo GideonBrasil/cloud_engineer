@@ -116,14 +116,9 @@ jobs:
 
       - name: Setup Kube Config File
         run: |
-          echo "$(terraform output kube_config)"  > ./config
+          echo "$(terraform output kube_config_raw)"  > ./config
           chmod 400 ./config
           echo "KUBECONFIG=${PWD}/config" >> $GITHUB_ENV
-        working-directory: ${{ env.TF_WORKING_DIR }}
-
-      - name: Check Kubeconfig Content
-        run: |
-          head -n 20 ./config
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Log KUBECONFIG Path
