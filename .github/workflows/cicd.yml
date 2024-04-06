@@ -120,13 +120,18 @@ jobs:
              sed -i '/^<<EOT/d; /EOT$/d' $HOME/azurek8s
              export KUBECONFIG=$HOME/azurek8s
 
-      - name: Debug
+      - name: Debug kube config
         run: | 
              echo $HOME/azurek8s
-             echo $KUBECONFIG
+
+      - name: Debug env variable
+        run: | 
+             echo $KUBECONFIG      
 
       - uses: azure/setup-helm@v4.1.0
         id: install  
 
       - name: Deploy Service
+        env: 
+          KUBECONFIG: $HOME/azurek8s
         run: helm upgrade --install --set image.tag="${{ needs.build.outputs.image_tag }}" sample-api sample-api/ --namespace cloud-engineer --create-namespace
