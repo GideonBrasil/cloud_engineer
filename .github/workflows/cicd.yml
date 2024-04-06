@@ -116,7 +116,7 @@ jobs:
 
       - name: Output Raw Kubeconfig Content
         run: |
-          terraform output -raw kube_config_raw | hexdump -C | head
+          terraform output kube_config | hexdump -C
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Setup Kube Config File
@@ -131,7 +131,7 @@ jobs:
           cat $KUBECONFIG | sed -e 's/client-certificate-data: .*/client-certificate-data: REDACTED/' \
                                 -e 's/client-key-data: .*/client-key-data: REDACTED/' \
                                 | grep -v 'token:' \
-                                | hexdump -C | head
+                                | hexdump -C
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Log KUBECONFIG Path
