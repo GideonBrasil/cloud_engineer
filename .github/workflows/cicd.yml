@@ -114,16 +114,27 @@ jobs:
         run: terraform apply -auto-approve tf.plan
         working-directory: ${{ env.TF_WORKING_DIR }}
 
+      - name: Output Raw Kubeconfig Content
+        run: |
+          terraform output -raw kube_config_raw | hexdump -C | head
+
       - name: Setup Kube Config File
         run: |
           echo "$(terraform output -raw kube_config_raw)" > ./config
           chmod 400 ./config
           echo "KUBECONFIG=${PWD}/config" >> $GITHUB_ENV
 
+      - name: Inspect Kubeconfig
+        run: |
+          cat $KUBECONFIG | sed -e 's/client-certificate-data: .*/client-certificate-data: REDACTED/' \
+                                -e 's/client-key-data: .*/client-key-data: REDACTED/' \
+                                | grep -v 'token:' \
+                                | hexdump -C | head
+
       - name: Log KUBECONFIG Path
         run: |
           echo "KUBECONFIG environment variable is set to: $KUBECONFIG"
-          kubectl config view --minify | grep -v "client-key-data" | grep -v "client-certificate-data"   
+          kubectl config view --minify | grep -v "client-key-data" | grep -v "client-certificate-data"
 
       - uses: azure/setup-helm@v4.1.0
         id: install  
