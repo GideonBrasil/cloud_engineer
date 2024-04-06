@@ -93,7 +93,7 @@ jobs:
       - name: Terraform Validate
         run: terraform validate -no-color
       
-      - name: tfsec
+      - name: Tfsec
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
           tfsec_args: --soft-fail
@@ -114,24 +114,17 @@ jobs:
         run: terraform apply -auto-approve tf.plan
         working-directory: ${{ env.TF_WORKING_DIR }}
 
-      - name: Setup kube config file
+      - name: Setup Kube Config File
         run: |
-             echo "$(terraform output kube_config)" > $HOME/azurek8s
-             sed -i '/^<<EOT/d; /EOT$/d' $HOME/azurek8s
-             export KUBECONFIG=$HOME/azurek8s
-
-      - name: Debug kube config
-        run: | 
-             echo $HOME/azurek8s
-
-      - name: Debug env variable
-        run: | 
-             echo $KUBECONFIG      
+          echo "$(terraform output kube_config)" > ./azurek8s
+          sed -i '/^<<EOT/d; /EOT$/d' ./azurek8s
+          mkdir -p ~/.kube
+          mv azurek8s ~/.kube/config
 
       - uses: azure/setup-helm@v4.1.0
         id: install  
+        with:
+          version: 'latest'
 
-      - name: Deploy Service
-        env: 
-          KUBECONFIG: $HOME/azurek8s
+      - name: Helm Deploy Service
         run: helm upgrade --install --set image.tag="${{ needs.build.outputs.image_tag }}" sample-api sample-api/ --namespace cloud-engineer --create-namespace
