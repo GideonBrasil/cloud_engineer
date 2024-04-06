@@ -118,7 +118,12 @@ jobs:
         run: |
           echo "$(terraform output -raw kube_config_raw)" > ./config
           chmod 400 ./config
-          echo "KUBECONFIG=./config" >> $GITHUB_ENV
+          echo "KUBECONFIG=${PWD}/config" >> $GITHUB_ENV
+
+      - name: Log KUBECONFIG Path
+        run: |
+          echo "KUBECONFIG environment variable is set to: $KUBECONFIG"
+          kubectl config view --minify | grep -v "client-key-data" | grep -v "client-certificate-data"   
 
       - uses: azure/setup-helm@v4.1.0
         id: install  
