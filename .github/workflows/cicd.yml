@@ -34,7 +34,7 @@ jobs:
 
     - name: Setup Image Tag
       id: image_tag
-      run: echo "image_tag=${{ github.sha }}  | cut -c1-10" >> $GITHUB_OUTPUT
+      run: echo "image_tag=$(echo ${{ github.sha }} | cut -c1-10)" >> $GITHUB_OUTPUT
 
     - name: Build Docker image
       run: docker build . -t cloud_engineer:${{ steps.image_tag.outputs.image_tag }}
