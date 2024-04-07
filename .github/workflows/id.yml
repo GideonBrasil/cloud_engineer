@@ -9,12 +9,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
   initial-deploy:
     runs-on: ubuntu-latest
-    needs: build
     
     env:
       TF_VERSION: '1.7.4'
@@ -25,6 +21,7 @@ jobs:
     defaults:
       run:
         shell: bash
+
     steps:
       - uses: actions/checkout@v4
 
