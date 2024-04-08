@@ -5,6 +5,9 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   location            = azurerm_resource_group.aks_resource_group.location
   resource_group_name = azurerm_resource_group.aks_resource_group.name
   dns_prefix          = "poc-aks-${var.environment}"
+  network_profile {
+      network_plugin = "kubenet"
+  }
 
   default_node_pool {
     name       = "default"

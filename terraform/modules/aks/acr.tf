@@ -5,3 +5,10 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Standard"
   admin_enabled       = false
 }
+
+resource "azurerm_management_lock" "container-registry-level" {
+  name       = "container-registry-level"
+  scope      = azurerm_container_registry.acr.id
+  lock_level = var.acr_lock_level
+  notes      = "Locked for accidental deletion of Azure Container Registry"
+}
