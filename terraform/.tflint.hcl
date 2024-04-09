@@ -1,5 +1,3 @@
-
-
 plugin "azurerm" {
     enabled = true
     version = "0.26.0"

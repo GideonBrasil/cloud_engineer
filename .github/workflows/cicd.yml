@@ -95,12 +95,53 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate -no-color
-      
-      - name: Tfsec
-        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+
+      - name: Run Terrascan
+        id: terrascan
+        uses: tenable/terrascan-action@main
         with:
-          tfsec_args: --soft-fail
-          github_token: ${{ github.token }}
+          iac_type: 'helm, k8s, terraform'
+          iac_version: 'v4, v1, v17'
+          iac_dir: ${{ env.TF_WORKING_DIR }}
+          policy_type: 'azure'
+          only_warn: true
+          
+      # TFLint - Terraform Check
+      - uses: actions/cache@v2
+        name: Cache plugin dir
+        with:
+          path: ~/.tflint.d/plugins
+          key: tflint-${{ hashFiles('.tflint.hcl') }}
+        
+
+      - uses: terraform-linters/setup-tflint@v2
+        name: Setup TFLint
+        with:
+          tflint_version: v0.50.3
+          
+            
+      # Print TFLint version
+      - name: Show version
+        run: tflint --version
+        working-directory: ${{ env.TF_WORKING_DIR }}
+          
+      # Install plugins
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        working-directory: ${{ env.TF_WORKING_DIR }}
+          
+      # Run tflint command in each directory recursively # use --force if you want to continue with workflow although errors are there
+      - name: Run TFLint
+        run: tflint -f compact --recursive
+        working-directory: ${{ env.TF_WORKING_DIR }}
+      
+      # - name: Tfsec
+      #   uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+      #   with:
+      #     tfsec_args: --soft-fail
+      #     github_token: ${{ github.token }}
       
       - name: Terraform Plan 
         run: terraform plan -no-color -input=false -out=tf.plan -var-file="terraform.tfvars.dev"
