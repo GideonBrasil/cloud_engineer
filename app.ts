@@ -24,6 +24,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).send('Please be patient, something went wrong!');
 });
 
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.status(404).send("Sorry, can't find that!");
+});
+
 // Export the app for use in other files, such as tests
 export default app;
 
